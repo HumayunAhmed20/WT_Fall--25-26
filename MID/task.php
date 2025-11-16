@@ -61,9 +61,10 @@
 </head>
 <body>
  
-  <h2>Student Registration</h2>
  
   <form onsubmit="return handleSubmit()">
+    
+  <h2>Student Registration</h2>
     <label="name">Full Name:</label>
     <input type="text" id="name" />
  
