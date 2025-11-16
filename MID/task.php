@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Form Handler</title>
+  <title>Student Registration</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -23,7 +23,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
  
-    input, select, button {
+    input {
       width: 100%;
       padding: 8px;
       margin-top: 10px;
@@ -32,8 +32,12 @@
     }
  
     button {
+      width: 40%;
+      padding: 8px;
+      margin-top: 10px;
       background-color: #003366;
       color: white;
+      border-radius: 5px;
       cursor: pointer;
     }
  
@@ -57,27 +61,22 @@
 </head>
 <body>
  
-  <h2>Registration Form</h2>
+  <h2>Student Registration</h2>
  
   <form onsubmit="return handleSubmit()">
-    <label>Name:</label>
+    <label="name">Full Name:</label>
     <input type="text" id="name" />
  
-    <label>ID:</label>
-    <input type="text" id="studentId" />
+    <label="email">Email:</label>
+    <input type="email" id="email" />
  
-    <label>Age:</label>
-    <input type="number" id="age" />
+    <label="password">Password:</label>
+    <input type="password" id="password" />
  
-    <label>Department:</label>
-    <select id="department">
-      <option value="">-- Select Department --</option>
-      <option value="CSE">CSE</option>
-      <option value="EEE">EEE</option>
-      <option value="BBA">BBA</option>
-    </select>
+    <label="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" />
  
-    <button type="submit">Submit</button>
+    <button type="submit">Register</button>
   </form>
  
   <!-- Output Section -->
@@ -88,9 +87,9 @@
     function handleSubmit() {
       // Get values from form
       var name = document.getElementById("name").value.trim();
-      var id = document.getElementById("studentId").value.trim();
-      var age = document.getElementById("age").value.trim();
-      var department = document.getElementById("department").value;
+      var email = document.getElementById("email").value.trim();
+      var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirmPassword").value;
  
       var errorDiv = document.getElementById("error");
       var outputDiv = document.getElementById("output");
@@ -100,31 +99,31 @@
       outputDiv.innerHTML = "";
  
       // Validation
-      if (name === "" || id === "" || age === "" || department === "") {
-        errorDiv.innerHTML = "Please fill in all fields.";
+      if (name === "" || email === "" || password === "" || confirmPassword === "") {
+        errorDiv.innerHTML = "All fields are required.";
         return false;
       }
  
-      if (isNaN(id)) {
-        errorDiv.innerHTML = " Student ID must be numeric.";
+      // Email validation (must contain '@')
+      if (!email.includes('@')) {
+        errorDiv.innerHTML = "Please enter a valid email address.";
         return false;
       }
  
-      if (age > 150) {
-        errorDiv.innerHTML = " Age cannot be more than 150.";
+      // Password and Confirm Password match check
+      if (password !== confirmPassword) {
+        errorDiv.innerHTML = "Passwords do not match.";
         return false;
       }
  
- 
+      // Display success message with student info (excluding password)
       outputDiv.innerHTML = `
-        <strong>Registration Complete!</strong><br><br>
+        <strong>Registration Successful!</strong><br><br>
         Name: ${name}<br>
-        ID: ${id}<br>
-        Age: ${age}<br>
-        Department: ${department}
+        Email: ${email}
       `;
  
-      return false;
+      return false; // Prevent form submission
     }
   </script>
  
